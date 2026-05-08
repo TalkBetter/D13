@@ -1,0 +1,1158 @@
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "28a5f7c0617a4f8aab97e95c1ea3e1b7"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WFQQ172YYK"></script>
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalkBetter Week 13</title>
+  <style>
+    :root {
+      --bg:
+        radial-gradient(circle at 14% 10%, rgba(59, 130, 246, 0.16), transparent 24%),
+        radial-gradient(circle at 86% 14%, rgba(251, 191, 36, 0.18), transparent 24%),
+        radial-gradient(circle at 52% 100%, rgba(249, 115, 22, 0.08), transparent 26%),
+        linear-gradient(180deg, #fff9ef 0%, #f9fcff 48%, #eef6ff 100%);
+      --card: rgba(255, 255, 255, 0.9);
+      --line: rgba(93, 115, 153, 0.18);
+      --ink: #15304a;
+      --muted: #607390;
+      --teal: #0f766e;
+      --teal-soft: rgba(15, 118, 110, 0.1);
+      --orange: #f97316;
+      --orange-soft: rgba(249, 115, 22, 0.1);
+      --sky: #0284c7;
+      --shadow: 0 24px 56px rgba(73, 107, 159, 0.14);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --ui: "Aptos", "Trebuchet MS", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      --head: "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 18px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--ui);
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      opacity: 0.52;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .page {
+      width: min(1160px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 22px 0 40px;
+    }
+
+    .hero,
+    .part-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 26px;
+      background:
+        radial-gradient(circle at top right, rgba(59, 130, 246, 0.16), transparent 28%),
+        radial-gradient(circle at left bottom, rgba(251, 191, 36, 0.14), transparent 30%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.97), rgba(255, 248, 236, 0.94));
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.65fr) minmax(280px, 360px);
+      gap: 20px;
+      align-items: start;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin: 0;
+      color: #12253b;
+    }
+
+    h1,
+    h2 {
+      font-family: var(--head);
+    }
+
+    h1 {
+      font-size: clamp(3rem, 5.2vw, 4.8rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 3.7vw, 2.8rem);
+      line-height: 1.05;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      line-height: 1.3;
+    }
+
+    h4 {
+      font-size: 1.18rem;
+      line-height: 1.35;
+    }
+
+    .hero-copy p,
+    .audio-status,
+    .zh,
+    .word-zh,
+    .card-copy {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.48;
+    }
+
+    .hero-copy p {
+      margin-top: 10px;
+      font-size: 1.12rem;
+    }
+
+    .word-en {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+
+    .hero-panel {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border: 1px solid rgba(93, 115, 153, 0.14);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: 0 14px 30px rgba(73, 107, 159, 0.08);
+    }
+
+    .hero-actions,
+    .part-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .primary,
+    .audio-chip {
+      padding: 13px 18px;
+      background: linear-gradient(135deg, #0f766e, #0284c7);
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(2, 132, 199, 0.2);
+      font-size: 1.02rem;
+      font-weight: 900;
+    }
+
+    .secondary {
+      padding: 13px 18px;
+      background: linear-gradient(135deg, #fff3e8, #fffaf4);
+      color: var(--orange);
+      box-shadow: 0 12px 24px rgba(249, 115, 22, 0.08);
+      font-size: 1.02rem;
+      font-weight: 900;
+    }
+
+    .audio-chip {
+      padding: 11px 16px;
+      font-size: 0.98rem;
+      line-height: 1.2;
+    }
+
+    .audio-chip[data-state="paused"] {
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      box-shadow: 0 14px 28px rgba(37, 99, 235, 0.18);
+    }
+
+    .audio-chip[data-state="playing"] {
+      background: linear-gradient(135deg, #ea580c, #f97316);
+      box-shadow: 0 14px 28px rgba(249, 115, 22, 0.2);
+    }
+
+    .audio-status {
+      min-height: 1.5em;
+      font-size: 0.98rem;
+    }
+
+    .parts {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .part-card {
+      position: relative;
+      overflow: hidden;
+      padding: 20px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .part-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 24px;
+      width: 104px;
+      height: 8px;
+      border-radius: 0 0 16px 16px;
+      background: linear-gradient(90deg, #f59e0b, #3b82f6);
+      opacity: 0.92;
+    }
+
+    .part-card.is-playing {
+      border-color: rgba(99, 102, 241, 0.28);
+      box-shadow: 0 28px 58px rgba(59, 130, 246, 0.16);
+    }
+
+    .part-card.is-paused {
+      border-color: rgba(249, 115, 22, 0.28);
+      box-shadow: 0 24px 50px rgba(249, 115, 22, 0.12);
+    }
+
+    .part-card.span-2 {
+      grid-column: 1 / -1;
+    }
+
+    .part-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .part-title p {
+      margin: 8px 0 0;
+    }
+
+    .part-main {
+      display: grid;
+      gap: 14px;
+    }
+
+    .pair-grid,
+    .sense-grid,
+    .examples-grid,
+    .qa-grid,
+    .phonics-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr;
+    }
+
+    .pair-card,
+    .sense-card,
+    .example-card,
+    .qa-card,
+    .phonics-card,
+    .grammar-card {
+      border: 1px solid rgba(93, 115, 153, 0.14);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 14px 30px rgba(73, 107, 159, 0.08);
+      padding: 14px 16px;
+    }
+
+    .pair-card,
+    .sense-card,
+    .example-card,
+    .qa-card {
+      display: grid;
+      gap: 6px;
+      background:
+        radial-gradient(circle at top right, rgba(14, 165, 233, 0.1), transparent 32%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 248, 255, 0.94));
+    }
+
+    [data-section-id="part1-learning"] .pair-grid {
+      counter-reset: learning-item;
+    }
+
+    [data-section-id="part1-learning"] .pair-card {
+      counter-increment: learning-item;
+      position: relative;
+      border-radius: 22px;
+      padding: 14px 16px 14px 68px;
+      gap: 4px;
+    }
+
+    [data-section-id="part1-learning"] .pair-card::before {
+      content: counter(learning-item);
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 1.9rem;
+      height: 1.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.92rem;
+      font-weight: 900;
+      box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.12);
+    }
+
+    [data-section-id="part1-learning"] .pair-card .en {
+      font-size: 1.5rem;
+      line-height: 1.22;
+    }
+
+    [data-section-id="part1-learning"] .pair-card .zh {
+      font-size: 1.1rem;
+      line-height: 1.34;
+    }
+
+    [data-section-id="part5-writing"] .qa-grid {
+      counter-reset: writing-item;
+    }
+
+    [data-section-id="part5-writing"] .qa-card {
+      counter-increment: writing-item;
+      position: relative;
+      border-radius: 22px;
+      padding: 16px 16px 16px 68px;
+    }
+
+    [data-section-id="part5-writing"] .qa-card::before {
+      content: counter(writing-item);
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 1.9rem;
+      height: 1.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: #ea580c;
+      color: #ffffff;
+      font-size: 0.92rem;
+      font-weight: 900;
+      box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.1);
+    }
+
+    .line-no,
+    .qa-label {
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .line-no {
+      color: var(--orange);
+    }
+
+    .qa-label {
+      color: var(--teal);
+    }
+
+    .en {
+      margin: 0;
+      font-size: 1.62rem;
+      line-height: 1.24;
+      color: var(--ink);
+      font-weight: 900;
+    }
+
+    .zh {
+      margin-top: 4px;
+      font-size: 1.12rem;
+    }
+
+    .meta-copy {
+      font-size: 1rem;
+    }
+
+    .phonics-card {
+      display: grid;
+      gap: 12px;
+    }
+
+    .phonics-card h3,
+    .sense-card h3,
+    .qa-card h4 {
+      color: var(--teal);
+    }
+
+    .word-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .word-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(88px, 0.8fr);
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(93, 115, 153, 0.18);
+    }
+
+    .word-row:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .word-en {
+      color: #1e3a5f;
+      font-weight: 900;
+      justify-content: flex-start;
+    }
+
+    .read-aloud {
+      padding-top: 10px;
+      border-top: 1px dashed rgba(93, 115, 153, 0.2);
+      color: #284765;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .qa-block {
+      display: grid;
+      gap: 5px;
+    }
+
+    .grammar-card {
+      display: grid;
+      gap: 10px;
+      background:
+        radial-gradient(circle at top right, rgba(14, 165, 233, 0.08), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 248, 255, 0.95));
+    }
+
+    .grammar-card .card-copy {
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+
+    .examples-grid .example-card,
+    .grammar-card {
+      align-content: start;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .parts,
+      .pair-grid,
+      .phonics-grid,
+      .sense-grid,
+      .examples-grid,
+      .qa-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .part-card.span-2 {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 760px) {
+      html {
+        font-size: 17px;
+      }
+
+      .page {
+        width: min(100% - 18px, 100%);
+        padding: 14px 0 28px;
+      }
+
+      .hero,
+      .part-card {
+        padding: 16px;
+        border-radius: 28px;
+      }
+
+      .hero-grid {
+        gap: 16px;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions,
+      .part-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .part-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .primary,
+      .secondary,
+      .audio-chip {
+        width: 100%;
+      }
+
+      .en {
+        font-size: 1.26rem;
+      }
+
+      .zh,
+      .word-zh {
+        font-size: 0.96rem;
+      }
+
+      .word-en {
+        font-size: 1.04rem;
+      }
+
+      .word-zh {
+        font-size: 1.02rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1>TalkBetter Week 13</h1>
+        </div>
+        <aside class="hero-panel">
+          <div class="hero-actions">
+            <button class="primary" id="playAllButton" type="button">播放全部</button>
+            <button class="secondary" id="stopButton" type="button">停止播放</button>
+          </div>
+          <p class="audio-status" id="audioStatus" aria-live="polite">正在檢查音檔。</p>
+        </aside>
+      </div>
+    </header>
+
+    <div class="parts">
+      <section class="part-card" data-section-id="part1-learning">
+        <div class="part-header">
+          <div class="part-title">
+            <h2>🌟 Learning Sentences 學習例句</h2>
+          </div>
+          <div class="part-actions">
+            <button class="audio-chip" data-play-section="part1-learning" data-state="ready" type="button">播放學習例句</button>
+          </div>
+        </div>
+
+        <div class="part-main">
+          <div class="pair-grid">
+            <article class="pair-card">
+              <div class="qa-block">
+                <p class="en">What does it look like?</p>
+                <p class="zh">它看起來是什麼樣子？</p>
+              </div>
+              <div class="qa-block">
+                <p class="en">The flower looks colorful and beautiful.</p>
+                <p class="zh">這朵花看起來色彩繽紛又漂亮。</p>
+              </div>
+            </article>
+            <article class="pair-card">
+              <div class="qa-block">
+                <p class="en">How does it smell?</p>
+                <p class="zh">它聞起來怎麼樣？</p>
+              </div>
+              <div class="qa-block">
+                <p class="en">The flower smells fresh and lovely.</p>
+                <p class="zh">這朵花聞起來清新又可愛。</p>
+              </div>
+            </article>
+            <article class="pair-card">
+              <div class="qa-block">
+                <p class="en">What does that sound like?</p>
+                <p class="zh">那聽起來像什麼？</p>
+              </div>
+              <div class="qa-block">
+                <p class="en">The drums sound loud.</p>
+                <p class="zh">這些鼓聲聽起來很大聲。</p>
+              </div>
+            </article>
+            <article class="pair-card">
+              <p class="en">The flowers smell so fresh.</p>
+              <p class="zh">這些花聞起來很新鮮。</p>
+            </article>
+            <article class="pair-card">
+              <p class="en">The lemonade tastes really sour because Mom put too many lemons.</p>
+              <p class="zh">這杯檸檬水喝起來很酸，因為媽媽放了太多檸檬。</p>
+            </article>
+            <article class="pair-card">
+              <p class="en">The soil feels dry, so I need to water my plant.</p>
+              <p class="zh">土壤摸起來很乾，所以我需要幫植物澆水。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="part-card" data-section-id="part2-phonics">
+        <div class="part-header">
+          <div class="part-title">
+            <h2>🔤 Phonics Sound 發音練習</h2>
+          </div>
+          <div class="part-actions">
+            <button class="audio-chip" data-play-section="part2-phonics" data-state="ready" type="button">播放發音練習</button>
+          </div>
+        </div>
+
+        <div class="part-main">
+          <div class="phonics-grid">
+            <article class="phonics-card">
+              <h3>-ng Sound</h3>
+              <p class="card-copy">-ng 是鼻音結尾，像中文「ㄥ」。最後不要加 k。</p>
+              <div class="word-list">
+                <div class="word-row">
+                  <div class="word-en">wing</div>
+                  <div class="word-zh">翅膀</div>
+                </div>
+                <div class="word-row">
+                  <div class="word-en">wings</div>
+                  <div class="word-zh">翅膀們</div>
+                </div>
+                <div class="word-row">
+                  <div class="word-en">sing</div>
+                  <div class="word-zh">唱歌</div>
+                </div>
+              </div>
+              <div class="read-aloud">Read aloud:<br>wing / wings / sing</div>
+            </article>
+
+            <article class="phonics-card">
+              <h3>-nk Sound</h3>
+              <p class="card-copy">-nk 是 ng + k。先發「ㄥ」，最後加短短的 k。</p>
+              <div class="word-list">
+                <div class="word-row">
+                  <div class="word-en">bank</div>
+                  <div class="word-zh">銀行</div>
+                </div>
+                <div class="word-row">
+                  <div class="word-en">pink</div>
+                  <div class="word-zh">粉紅色</div>
+                </div>
+                <div class="word-row">
+                  <div class="word-en">sink</div>
+                  <div class="word-zh">水槽／下沉</div>
+                </div>
+                <div class="word-row">
+                  <div class="word-en">skunk</div>
+                  <div class="word-zh">臭鼬</div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="part-card" data-section-id="part3-senses">
+        <div class="part-header">
+          <div class="part-title">
+            <h2>🌼 Sense Sentences 五感寫作提示</h2>
+          </div>
+          <div class="part-actions">
+            <button class="audio-chip" data-play-section="part3-senses" data-state="ready" type="button">播放五感提示</button>
+          </div>
+        </div>
+
+        <div class="part-main">
+          <div class="sense-grid">
+            <article class="sense-card">
+              <h3>Sight 視覺</h3>
+              <p class="zh">pretty，漂亮的</p>
+              <p class="en">The flower looks colorful and beautiful.</p>
+              <p class="zh">這朵花看起來色彩繽紛又漂亮。</p>
+            </article>
+            <article class="sense-card">
+              <h3>Sound 聽覺</h3>
+              <p class="zh">noisy，吵鬧的</p>
+              <p class="en">The drums sound loud and noisy.</p>
+              <p class="zh">這些鼓聲聽起來又大聲又吵鬧。</p>
+            </article>
+            <article class="sense-card">
+              <h3>Smell 嗅覺</h3>
+              <p class="zh">fresh，新鮮的</p>
+              <p class="en">The flowers smell so fresh.</p>
+              <p class="zh">這些花聞起來很新鮮。</p>
+            </article>
+            <article class="sense-card">
+              <h3>Taste 味覺</h3>
+              <p class="zh">sour，酸的</p>
+              <p class="en">The lemonade tastes really sour because Mom put too many lemons.</p>
+              <p class="zh">這杯檸檬水喝起來真的很酸，因為媽媽放了太多檸檬。</p>
+            </article>
+            <article class="sense-card">
+              <h3>Touch 觸覺</h3>
+              <p class="zh">dry，乾的</p>
+              <p class="en">The soil feels dry so I need to water my plant.</p>
+              <p class="zh">土壤摸起來很乾，所以我需要幫我的植物澆水。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="part-card" data-section-id="part4-grammar">
+        <div class="part-header">
+          <div class="part-title">
+            <h2>🧩 Grammar Focus 文法重點</h2>
+          </div>
+        </div>
+
+        <div class="part-main">
+          <article class="grammar-card">
+            <p class="card-copy">簡單否定句用來表示「不」。</p>
+            <p class="card-copy">如果主詞是 I、you、we、they，就用 <strong>do not</strong>。如果主詞是 he、she、it，就用 <strong>does not</strong>。</p>
+            <p class="card-copy">句型是：<strong>主詞 + do not / does not + 原形動詞 + 其他</strong>。</p>
+            <p class="card-copy">看到句子裡有 do not 或 does not，就知道這是否定句。</p>
+          </article>
+
+          <div class="examples-grid">
+            <article class="example-card">
+              <p class="en">I do not like pizza.</p>
+              <p class="zh">我不喜歡披薩。</p>
+            </article>
+            <article class="example-card">
+              <p class="en">We do not play today.</p>
+              <p class="zh">我們今天不玩。</p>
+            </article>
+            <article class="example-card">
+              <p class="en">He does not like pizza.</p>
+              <p class="zh">他不喜歡披薩。</p>
+            </article>
+            <article class="example-card">
+              <p class="en">She does not eat lemons.</p>
+              <p class="zh">她不吃檸檬。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="part-card span-2" data-section-id="part5-writing">
+        <div class="part-header">
+          <div class="part-title">
+            <h2>🍽️ Five Senses Writing 問題與答案範例</h2>
+          </div>
+          <div class="part-actions">
+            <button class="audio-chip" data-play-section="part5-writing" data-state="ready" type="button">播放寫作問答</button>
+          </div>
+        </div>
+
+        <div class="part-main">
+          <div class="qa-grid">
+            <article class="qa-card">
+              <h4>Sight 視覺</h4>
+              <div class="qa-block">
+                <p class="en">What does your food look like? What colors and shapes does it have?</p>
+                <p class="zh">你的食物看起來像什麼？它有什麼顏色和形狀？</p>
+              </div>
+              <div class="qa-block">
+                <p class="en">My food looks round and colorful. It has red, yellow, and white colors.</p>
+                <p class="zh">我的食物看起來圓圓的，而且很多顏色。它有紅色、黃色和白色。</p>
+              </div>
+            </article>
+
+            <article class="qa-card">
+              <h4>Hearing 聽覺</h4>
+              <div class="qa-block">
+                <p class="en">What sounds do you hear when it’s cooking or when you eat it?</p>
+                <p class="zh">當它在煮的時候，或你吃它的時候，你會聽到什麼聲音？</p>
+              </div>
+              <div class="qa-block">
+                <p class="en">I hear a crunchy sound when I eat it.</p>
+                <p class="zh">我吃它的時候會聽到脆脆的聲音。</p>
+              </div>
+            </article>
+
+            <article class="qa-card">
+              <h4>Touch 觸覺</h4>
+              <div class="qa-block">
+                <p class="en">How does the food feel in your hands? Is it hot, cold, soft, or crunchy?</p>
+                <p class="zh">食物拿在手上感覺如何？它是熱的、冷的、軟的，還是脆脆的？</p>
+              </div>
+              <div class="qa-block">
+                <p class="en">It feels hot and soft in my hands.</p>
+                <p class="zh">它拿在我手上感覺熱熱的、軟軟的。</p>
+              </div>
+            </article>
+
+            <article class="qa-card">
+              <h4>Taste 味覺</h4>
+              <div class="qa-block">
+                <p class="en">What does it taste like? Is it sweet, salty, or spicy?</p>
+                <p class="zh">它吃起來是什麼味道？它是甜的、鹹的，還是辣的？</p>
+              </div>
+              <div class="qa-block">
+                <p class="en">It tastes salty and yummy.</p>
+                <p class="zh">它吃起來鹹鹹的，而且很好吃。</p>
+              </div>
+            </article>
+
+            <article class="qa-card">
+              <h4>Smell 嗅覺</h4>
+              <div class="qa-block">
+                <p class="en">What does it smell like when it’s cooking or when you eat it?</p>
+                <p class="zh">當它在煮的時候，或你吃它的時候，它聞起來是什麼味道？</p>
+              </div>
+              <div class="qa-block">
+                <p class="en">It smells good and cheesy.</p>
+                <p class="zh">它聞起來很香，有起司味。</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const sections = [
+      { id: "part1-learning", label: "學習例句", file: "01-learning-sentences.mp3", defaultLabel: "播放學習例句" },
+      { id: "part2-phonics", label: "發音練習", file: "02-phonics-sound.mp3", defaultLabel: "播放發音練習" },
+      { id: "part3-senses", label: "五感提示", file: "03-sense-sentences.mp3", defaultLabel: "播放五感提示" },
+      { id: "part5-writing", label: "寫作問答", file: "05-five-senses-writing.mp3", defaultLabel: "播放寫作問答" }
+    ];
+
+    const sectionMap = new Map(sections.map((section) => [section.id, section]));
+    const availability = new Map(sections.map((section) => [section.id, false]));
+    const buttonNodes = new Map();
+    const cardNodes = new Map();
+
+    document.querySelectorAll("[data-play-section]").forEach((button) => {
+      buttonNodes.set(button.dataset.playSection, button);
+    });
+
+    sections.forEach((section) => {
+      const card = document.querySelector(`[data-section-id="${section.id}"]`);
+      if (card) {
+        cardNodes.set(section.id, card);
+      }
+    });
+
+    const playAllButton = document.getElementById("playAllButton");
+    const stopButton = document.getElementById("stopButton");
+    const statusNode = document.getElementById("audioStatus");
+    const player = new Audio();
+    player.preload = "metadata";
+
+    let currentSectionId = null;
+    let playAllMode = false;
+    let queue = [];
+    let queueIndex = 0;
+
+    function getSource(section) {
+      return `audio/${section.file}`;
+    }
+
+    function readySections() {
+      return sections.filter((section) => availability.get(section.id));
+    }
+
+    function clearCardState(sectionId) {
+      const card = cardNodes.get(sectionId);
+      if (!card) return;
+      card.classList.remove("is-playing", "is-paused");
+    }
+
+    function setPlayingState(sectionId) {
+      const card = cardNodes.get(sectionId);
+      if (!card) return;
+      card.classList.add("is-playing");
+      card.classList.remove("is-paused");
+    }
+
+    function setPausedState(sectionId) {
+      const card = cardNodes.get(sectionId);
+      if (!card) return;
+      card.classList.add("is-paused");
+      card.classList.remove("is-playing");
+    }
+
+    function clearAllCardStates() {
+      sections.forEach((section) => clearCardState(section.id));
+    }
+
+    function renderAudioStatus(message) {
+      statusNode.textContent = message;
+    }
+
+    function updateAvailabilityStatus() {
+      const readyCount = readySections().length;
+      if (readyCount === 0) {
+        statusNode.textContent = "尚未找到音檔，把 audio/README.txt 裡列出的 5 個 mp3 放進 audio/ 後會自動啟用。";
+        return;
+      }
+      if (readyCount === sections.length) {
+        statusNode.textContent = "5 個音檔都已找到，可以播放全部或單獨播放。";
+        return;
+      }
+      statusNode.textContent = `已找到 ${readyCount} / ${sections.length} 個音檔。`;
+    }
+
+    function updateButtons() {
+      playAllButton.disabled = readySections().length === 0;
+      stopButton.disabled = !currentSectionId && !playAllMode;
+
+      sections.forEach((section) => {
+        const button = buttonNodes.get(section.id);
+        if (!button) return;
+
+        const ready = availability.get(section.id);
+        let label = section.defaultLabel;
+        let state = ready ? "ready" : "missing";
+
+        if (currentSectionId === section.id) {
+          if (player.paused) {
+            label = `繼續 ${section.label}`;
+            state = "paused";
+          } else {
+            label = `暫停 ${section.label}`;
+            state = "playing";
+          }
+        } else if (!ready) {
+          label = `${section.label} 無音檔`;
+        }
+
+        button.textContent = label;
+        button.dataset.state = state;
+        button.disabled = !ready;
+      });
+    }
+
+    function stopPlayback(resetPlayAll = true) {
+      player.pause();
+      player.removeAttribute("src");
+      player.load();
+      clearAllCardStates();
+      currentSectionId = null;
+
+      if (resetPlayAll) {
+        playAllMode = false;
+        queue = [];
+        queueIndex = 0;
+      }
+
+      updateButtons();
+    }
+
+    function onPlaybackError(section) {
+      clearCardState(section.id);
+      availability.set(section.id, false);
+      currentSectionId = null;
+      updateAvailabilityStatus();
+      updateButtons();
+
+      if (playAllMode) {
+        queueIndex += 1;
+        playQueuedSection();
+        return;
+      }
+
+      renderAudioStatus(`找不到 ${section.file}，請檢查 audio/ 內的檔名。`);
+    }
+
+    function startPlayback(section, fromQueue = false) {
+      if (!availability.get(section.id)) {
+        renderAudioStatus(`尚未找到 ${section.file}。`);
+        updateButtons();
+        return;
+      }
+
+      if (currentSectionId && currentSectionId !== section.id) {
+        clearCardState(currentSectionId);
+      }
+
+      currentSectionId = section.id;
+      setPlayingState(section.id);
+      player.pause();
+      player.src = getSource(section);
+      player.currentTime = 0;
+
+      const playPromise = player.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {
+          onPlaybackError(section);
+        });
+      }
+
+      renderAudioStatus(fromQueue ? `依序播放 ${section.label}。` : `正在播放 ${section.label}。`);
+      updateButtons();
+    }
+
+    function resumePlayback(section) {
+      if (!section || currentSectionId !== section.id) return;
+      setPlayingState(section.id);
+
+      const playPromise = player.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {
+          onPlaybackError(section);
+        });
+      }
+
+      renderAudioStatus(`繼續播放 ${section.label}。`);
+      updateButtons();
+    }
+
+    function toggleSectionPlayback(sectionId) {
+      const section = sectionMap.get(sectionId);
+      if (!section || !availability.get(section.id)) return;
+
+      if (currentSectionId === sectionId) {
+        if (player.paused) {
+          resumePlayback(section);
+        } else {
+          player.pause();
+          setPausedState(section.id);
+          renderAudioStatus(`已暫停 ${section.label}。`);
+          updateButtons();
+        }
+        return;
+      }
+
+      playAllMode = false;
+      queue = [];
+      queueIndex = 0;
+      startPlayback(section, false);
+    }
+
+    function playQueuedSection() {
+      if (queueIndex >= queue.length) {
+        stopPlayback(false);
+        renderAudioStatus("全部播放完成。");
+        playAllMode = false;
+        updateButtons();
+        return;
+      }
+
+      const nextId = queue[queueIndex];
+      const nextSection = sectionMap.get(nextId);
+      if (!nextSection || !availability.get(nextSection.id)) {
+        queueIndex += 1;
+        playQueuedSection();
+        return;
+      }
+
+      startPlayback(nextSection, true);
+    }
+
+    function playAllSections() {
+      const ready = readySections();
+      if (ready.length === 0) {
+        renderAudioStatus("目前沒有可播放的音檔。");
+        updateButtons();
+        return;
+      }
+
+      playAllMode = true;
+      queue = ready.map((section) => section.id);
+      queueIndex = 0;
+      playQueuedSection();
+    }
+
+    function probeAudioSource(src) {
+      return new Promise((resolve) => {
+        const probe = new Audio();
+        let settled = false;
+
+        function finish(result) {
+          if (settled) return;
+          settled = true;
+          probe.removeAttribute("src");
+          probe.load();
+          resolve(result);
+        }
+
+        probe.preload = "metadata";
+        probe.src = src;
+        probe.addEventListener("canplaythrough", () => finish(true), { once: true });
+        probe.addEventListener("loadedmetadata", () => finish(true), { once: true });
+        probe.addEventListener("error", () => finish(false), { once: true });
+
+        setTimeout(() => finish(false), 2500);
+      });
+    }
+
+    async function detectAudio() {
+      await Promise.all(sections.map(async (section) => {
+        const ok = await probeAudioSource(getSource(section));
+        availability.set(section.id, ok);
+      }));
+
+      updateAvailabilityStatus();
+      updateButtons();
+    }
+
+    playAllButton.addEventListener("click", playAllSections);
+    stopButton.addEventListener("click", () => {
+      stopPlayback();
+      renderAudioStatus("已停止播放。");
+    });
+
+    buttonNodes.forEach((button, sectionId) => {
+      button.addEventListener("click", () => toggleSectionPlayback(sectionId));
+    });
+
+    player.addEventListener("ended", () => {
+      const finishedSection = currentSectionId ? sectionMap.get(currentSectionId) : null;
+      if (currentSectionId) {
+        clearCardState(currentSectionId);
+      }
+      currentSectionId = null;
+
+      if (playAllMode) {
+        queueIndex += 1;
+        playQueuedSection();
+        return;
+      }
+
+      if (finishedSection) {
+        renderAudioStatus(`${finishedSection.label} 播放完成。`);
+      }
+      updateButtons();
+    });
+
+    player.addEventListener("error", () => {
+      const section = currentSectionId ? sectionMap.get(currentSectionId) : null;
+      if (!section) {
+        renderAudioStatus("播放時發生錯誤。");
+        updateButtons();
+        return;
+      }
+      onPlaybackError(section);
+    });
+
+    detectAudio();
+  </script>
+</body>
+</html>
