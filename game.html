@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalkBetter Week 13 — 五感大冒險</title>
+  <style>
+    :root {
+      --bg:
+        radial-gradient(circle at 14% 10%, rgba(59, 130, 246, 0.16), transparent 24%),
+        radial-gradient(circle at 86% 14%, rgba(251, 191, 36, 0.18), transparent 24%),
+        radial-gradient(circle at 52% 100%, rgba(249, 115, 22, 0.08), transparent 26%),
+        linear-gradient(180deg, #fff9ef 0%, #f9fcff 48%, #eef6ff 100%);
+      --card: rgba(255, 255, 255, 0.92);
+      --line: rgba(93, 115, 153, 0.18);
+      --ink: #15304a;
+      --muted: #607390;
+      --teal: #0f766e;
+      --orange: #f97316;
+      --sky: #0284c7;
+      --green: #16a34a;
+      --red: #dc2626;
+      --shadow: 0 24px 56px rgba(73, 107, 159, 0.14);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --ui: "Aptos", "Trebuchet MS", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      --head: "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { font-size: 18px; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--ui);
+      color: var(--ink);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease, background 0.2s ease;
+    }
+    button:hover:not(:disabled) { transform: translateY(-1px); }
+    button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .page {
+      width: min(880px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 22px 0 130px;
+    }
+
+    .hero, .stage {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .hero {
+      background:
+        radial-gradient(circle at top right, rgba(59, 130, 246, 0.16), transparent 28%),
+        radial-gradient(circle at left bottom, rgba(251, 191, 36, 0.14), transparent 30%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.97), rgba(255, 248, 236, 0.94));
+      text-align: center;
+    }
+
+    h1, h2, h3 { margin: 0; color: #12253b; }
+    h1, h2 { font-family: var(--head); }
+    h1 {
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1.15;
+    }
+    h3 { font-size: 1.25rem; }
+
+    .hero p { color: var(--muted); font-size: 1.1rem; line-height: 1.55; margin: 14px auto 0; max-width: 560px; }
+    .hero .emoji-row { font-size: 2.6rem; letter-spacing: 12px; margin-top: 18px; }
+
+    .primary, .secondary {
+      padding: 14px 22px;
+      font-size: 1.04rem;
+      font-weight: 900;
+    }
+    .primary {
+      background: linear-gradient(135deg, #0f766e, #0284c7);
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(2, 132, 199, 0.22);
+    }
+    .secondary {
+      background: linear-gradient(135deg, #fff3e8, #fffaf4);
+      color: var(--orange);
+      box-shadow: 0 12px 24px rgba(249, 115, 22, 0.1);
+    }
+
+    .stage { margin-top: 18px; display: none; }
+    .stage.active { display: block; animation: fadeUp 0.32s ease; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.1);
+      color: var(--teal);
+      font-weight: 900;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+    }
+    .badge.score { background: rgba(249, 115, 22, 0.1); color: var(--orange); }
+
+    .progress {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(93, 115, 153, 0.14);
+      overflow: hidden;
+      margin: 14px 0 22px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #f59e0b, #3b82f6);
+      transition: width 0.4s ease;
+    }
+
+    .question {
+      font-family: var(--head);
+      font-size: clamp(1.4rem, 3.4vw, 2rem);
+      line-height: 1.32;
+      margin: 6px 0 6px;
+      color: #12253b;
+    }
+    .question .blank {
+      display: inline-block;
+      min-width: 96px;
+      border-bottom: 3px dashed var(--orange);
+      margin: 0 4px;
+    }
+    .hint {
+      color: var(--muted);
+      margin: 0 0 18px;
+      font-size: 1rem;
+    }
+
+    .options {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 560px) {
+      .options { grid-template-columns: 1fr; }
+    }
+    .opt {
+      padding: 16px 18px;
+      border-radius: var(--radius-lg);
+      border: 2px solid rgba(93, 115, 153, 0.16);
+      background: rgba(255, 255, 255, 0.96);
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 1.05rem;
+      text-align: left;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .opt .icon { font-size: 1.5rem; margin-right: 8px; }
+    .opt:hover:not(:disabled):not(.locked) {
+      border-color: var(--sky);
+      background: rgba(2, 132, 199, 0.06);
+      transform: translateY(-2px);
+    }
+    .opt.correct {
+      border-color: var(--green);
+      background: rgba(22, 163, 74, 0.12);
+      color: #14532d;
+      animation: pop 0.4s ease;
+    }
+    .opt.wrong {
+      border-color: var(--red);
+      background: rgba(220, 38, 38, 0.1);
+      color: #7f1d1d;
+      animation: shake 0.4s ease;
+    }
+    .opt.dim { opacity: 0.55; }
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    .feedback {
+      min-height: 1.6em;
+      font-weight: 900;
+      font-size: 1.08rem;
+      margin-bottom: 14px;
+    }
+    .feedback.good { color: var(--green); }
+    .feedback.bad { color: var(--red); }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .actions .secondary { padding: 11px 18px; font-size: 0.98rem; }
+    .actions .primary { padding: 11px 18px; font-size: 0.98rem; }
+
+    /* End screen */
+    .end {
+      text-align: center;
+    }
+    .stars { font-size: 3rem; letter-spacing: 8px; margin: 8px 0 12px; }
+    .final-score {
+      font-family: var(--head);
+      font-size: clamp(3rem, 7vw, 4.4rem);
+      color: var(--orange);
+      line-height: 1;
+      margin: 6px 0 4px;
+      font-weight: 900;
+    }
+    .final-label { color: var(--muted); margin-bottom: 22px; }
+
+    /* Confetti */
+    .confetti-wrap {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 50;
+    }
+    .confetti {
+      position: absolute;
+      top: -20px;
+      width: 10px;
+      height: 16px;
+      border-radius: 2px;
+      opacity: 0.92;
+      animation: fall 2.4s linear forwards;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* Footer */
+    .page-footer {
+      position: fixed;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      z-index: 30;
+      pointer-events: none;
+    }
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 900;
+      text-decoration: none;
+      pointer-events: auto;
+      background: linear-gradient(135deg, #0f766e, #0284c7);
+      box-shadow: 0 14px 28px rgba(2, 132, 199, 0.2);
+    }
+    .footer-link.alt {
+      background: linear-gradient(135deg, #f97316, #dc2626);
+      box-shadow: 0 14px 28px rgba(220, 38, 38, 0.22);
+    }
+    .footer-link:hover { transform: translateY(-1px); }
+
+    @media (max-width: 760px) {
+      html { font-size: 17px; }
+      .page { width: min(100% - 18px, 100%); padding: 14px 0 116px; }
+      .hero, .stage { padding: 18px; border-radius: 28px; }
+      .page-footer { left: 10px; right: 10px; bottom: 10px; gap: 10px; }
+      .footer-link { min-height: 48px; padding: 11px 16px; font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <!-- Start screen -->
+    <section class="hero stage active" id="startStage">
+      <h1>🎮 五感大冒險</h1>
+      <p>結合 Week 13 的學習例句、發音、文法與五感寫作，挑戰 4 個關卡，看看你能拿幾顆星！</p>
+      <div class="emoji-row">👀 👂 👃 👅 ✋</div>
+      <div class="actions" style="justify-content: center; margin-top: 22px;">
+        <button class="primary" id="startBtn" type="button">開始冒險</button>
+      </div>
+    </section>
+
+    <!-- Quiz screen -->
+    <section class="stage" id="quizStage">
+      <div class="topbar">
+        <span class="badge" id="roundBadge">第 1 關</span>
+        <span class="badge score" id="scoreBadge">⭐ 0 分</span>
+      </div>
+      <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+      <h2 id="roundTitle">五感配對</h2>
+      <p class="hint" id="roundHint">讀句子，選出對應的感官。</p>
+
+      <p class="question" id="questionText"></p>
+
+      <div class="options" id="optionsBox"></div>
+
+      <p class="feedback" id="feedbackText"></p>
+
+      <div class="actions">
+        <button class="primary" id="nextBtn" type="button" disabled>下一題</button>
+      </div>
+    </section>
+
+    <!-- End screen -->
+    <section class="stage end" id="endStage">
+      <div class="stars" id="starsRow">⭐⭐⭐</div>
+      <div class="final-score" id="finalScore">0</div>
+      <div class="final-label">總分 / 滿分 <span id="maxScore">0</span></div>
+      <h2 id="endTitle">太棒了！</h2>
+      <p class="hint" id="endMsg">你完成了五感大冒險！</p>
+      <div class="actions" style="justify-content: center;">
+        <button class="primary" id="restartBtn" type="button">再玩一次</button>
+      </div>
+    </section>
+
+    <div class="confetti-wrap" id="confettiWrap"></div>
+  </main>
+
+  <div class="page-footer">
+    <a class="footer-link" href="index.html">回 Week 13 學習頁</a>
+    <a class="footer-link alt" href="https://talkbetter.github.io/D/">回導覽頁</a>
+  </div>
+
+  <script>
+    // ====== Game data (from index.html content) ======
+    const senseChoices = [
+      { key: "sight",  label: "👀 Sight 視覺" },
+      { key: "sound",  label: "👂 Sound 聽覺" },
+      { key: "smell",  label: "👃 Smell 嗅覺" },
+      { key: "taste",  label: "👅 Taste 味覺" },
+      { key: "touch",  label: "✋ Touch 觸覺" }
+    ];
+
+    const rounds = [
+      {
+        title: "🌼 第 1 關：五感配對",
+        hint: "讀英文句子，選出對應的感官。",
+        type: "choice",
+        items: [
+          { q: "The flower looks colorful and beautiful.", choices: senseChoices, answer: "sight",
+            explain: "看到 looks → 用眼睛看 → Sight 視覺。" },
+          { q: "The drums sound loud and noisy.", choices: senseChoices, answer: "sound",
+            explain: "看到 sound → 用耳朵聽 → Sound 聽覺。" },
+          { q: "The flowers smell so fresh.", choices: senseChoices, answer: "smell",
+            explain: "看到 smell → 用鼻子聞 → Smell 嗅覺。" },
+          { q: "The lemonade tastes really sour.", choices: senseChoices, answer: "taste",
+            explain: "看到 tastes → 用嘴巴嚐 → Taste 味覺。" },
+          { q: "The soil feels dry.", choices: senseChoices, answer: "touch",
+            explain: "看到 feels → 用手摸 → Touch 觸覺。" }
+        ]
+      },
+      {
+        title: "🔤 第 2 關：發音分類",
+        hint: "這個單字屬於 -ng 還是 -nk？",
+        type: "choice",
+        items: [
+          { q: "wing", choices: [{ key: "ng", label: "🎵 -ng 鼻音" }, { key: "nk", label: "💨 -nk 加 k" }], answer: "ng",
+            explain: "wing 結尾是 -ng，鼻音「ㄥ」。" },
+          { q: "sing", choices: [{ key: "ng", label: "🎵 -ng 鼻音" }, { key: "nk", label: "💨 -nk 加 k" }], answer: "ng",
+            explain: "sing 結尾是 -ng，唱歌的「ㄥ」。" },
+          { q: "bank", choices: [{ key: "ng", label: "🎵 -ng 鼻音" }, { key: "nk", label: "💨 -nk 加 k" }], answer: "nk",
+            explain: "bank 結尾是 -nk，最後有短短的 k。" },
+          { q: "pink", choices: [{ key: "ng", label: "🎵 -ng 鼻音" }, { key: "nk", label: "💨 -nk 加 k" }], answer: "nk",
+            explain: "pink 結尾是 -nk，粉紅色的 k 別忘了。" },
+          { q: "skunk", choices: [{ key: "ng", label: "🎵 -ng 鼻音" }, { key: "nk", label: "💨 -nk 加 k" }], answer: "nk",
+            explain: "skunk 結尾是 -nk。" }
+        ]
+      },
+      {
+        title: "🧩 第 3 關：否定句文法",
+        hint: "選出正確的 do not 或 does not。",
+        type: "choice",
+        items: [
+          { q: "I ___ like pizza.", choices: [
+              { key: "do", label: "do not" }, { key: "does", label: "does not" }
+            ], answer: "do",
+            explain: "主詞 I → 用 do not。" },
+          { q: "We ___ play today.", choices: [
+              { key: "do", label: "do not" }, { key: "does", label: "does not" }
+            ], answer: "do",
+            explain: "主詞 We → 用 do not。" },
+          { q: "He ___ like pizza.", choices: [
+              { key: "do", label: "do not" }, { key: "does", label: "does not" }
+            ], answer: "does",
+            explain: "主詞 He → 用 does not。" },
+          { q: "She ___ eat lemons.", choices: [
+              { key: "do", label: "do not" }, { key: "does", label: "does not" }
+            ], answer: "does",
+            explain: "主詞 She → 用 does not。" },
+          { q: "They ___ play today.", choices: [
+              { key: "do", label: "do not" }, { key: "does", label: "does not" }
+            ], answer: "do",
+            explain: "主詞 They → 用 do not。" }
+        ]
+      },
+      {
+        title: "🍽️ 第 4 關：五感寫作問答",
+        hint: "讀問題，選出最合適的回答。",
+        type: "choice",
+        items: [
+          {
+            q: "What does your food look like?",
+            choices: [
+              { key: "a", label: "My food looks round and colorful." },
+              { key: "b", label: "It feels hot and soft." },
+              { key: "c", label: "It tastes salty and yummy." }
+            ], answer: "a",
+            explain: "問 look like → 回答用 looks。"
+          },
+          {
+            q: "What sounds do you hear when you eat it?",
+            choices: [
+              { key: "a", label: "It smells good and cheesy." },
+              { key: "b", label: "I hear a crunchy sound when I eat it." },
+              { key: "c", label: "My food looks round." }
+            ], answer: "b",
+            explain: "問 sounds / hear → 用聽到的聲音回答。"
+          },
+          {
+            q: "How does the food feel in your hands?",
+            choices: [
+              { key: "a", label: "It tastes salty." },
+              { key: "b", label: "It smells fresh." },
+              { key: "c", label: "It feels hot and soft in my hands." }
+            ], answer: "c",
+            explain: "問 feel → 用 feels 回答觸感。"
+          },
+          {
+            q: "What does it taste like?",
+            choices: [
+              { key: "a", label: "It tastes salty and yummy." },
+              { key: "b", label: "It looks colorful." },
+              { key: "c", label: "I hear a crunchy sound." }
+            ], answer: "a",
+            explain: "問 taste like → 用 tastes 回答味道。"
+          },
+          {
+            q: "What does it smell like?",
+            choices: [
+              { key: "a", label: "It feels cold." },
+              { key: "b", label: "It smells good and cheesy." },
+              { key: "c", label: "It looks round." }
+            ], answer: "b",
+            explain: "問 smell like → 用 smells 回答氣味。"
+          }
+        ]
+      }
+    ];
+
+    // ====== State ======
+    let roundIndex = 0;
+    let itemIndex = 0;
+    let score = 0;
+    let answeredThisItem = false;
+
+    // ====== Elements ======
+    const startStage = document.getElementById("startStage");
+    const quizStage = document.getElementById("quizStage");
+    const endStage = document.getElementById("endStage");
+    const startBtn = document.getElementById("startBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const roundBadge = document.getElementById("roundBadge");
+    const scoreBadge = document.getElementById("scoreBadge");
+    const roundTitle = document.getElementById("roundTitle");
+    const roundHint = document.getElementById("roundHint");
+    const questionText = document.getElementById("questionText");
+    const optionsBox = document.getElementById("optionsBox");
+    const feedbackText = document.getElementById("feedbackText");
+    const progressFill = document.getElementById("progressFill");
+    const finalScore = document.getElementById("finalScore");
+    const maxScore = document.getElementById("maxScore");
+    const starsRow = document.getElementById("starsRow");
+    const endTitle = document.getElementById("endTitle");
+    const endMsg = document.getElementById("endMsg");
+    const confettiWrap = document.getElementById("confettiWrap");
+
+    const totalItems = rounds.reduce((n, r) => n + r.items.length, 0);
+    const pointsPer = 10;
+    const maxPoints = totalItems * pointsPer;
+    maxScore.textContent = maxPoints;
+
+    // ====== Helpers ======
+    function showStage(stage) {
+      [startStage, quizStage, endStage].forEach(s => s.classList.remove("active"));
+      stage.classList.add("active");
+    }
+
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function answeredCount() {
+      let n = 0;
+      for (let r = 0; r < roundIndex; r++) n += rounds[r].items.length;
+      n += itemIndex;
+      return n;
+    }
+
+    function updateProgress() {
+      const pct = (answeredCount() / totalItems) * 100;
+      progressFill.style.width = pct + "%";
+      scoreBadge.textContent = `⭐ ${score} 分`;
+      roundBadge.textContent = `第 ${roundIndex + 1} 關 · ${itemIndex + 1}/${rounds[roundIndex].items.length}`;
+    }
+
+    function renderItem() {
+      const round = rounds[roundIndex];
+      const item = round.items[itemIndex];
+
+      roundTitle.textContent = round.title;
+      roundHint.textContent = round.hint;
+      questionText.innerHTML = item.q.replace("___", '<span class="blank"></span>');
+
+      optionsBox.innerHTML = "";
+      const choices = shuffle(item.choices);
+      choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "opt";
+        btn.dataset.key = choice.key;
+        btn.textContent = choice.label;
+        btn.addEventListener("click", () => onAnswer(btn, choice.key, item));
+        optionsBox.appendChild(btn);
+      });
+
+      feedbackText.textContent = "";
+      feedbackText.className = "feedback";
+      nextBtn.disabled = true;
+      answeredThisItem = false;
+      updateProgress();
+    }
+
+    function onAnswer(btn, key, item) {
+      if (answeredThisItem) return;
+      answeredThisItem = true;
+
+      const buttons = optionsBox.querySelectorAll(".opt");
+      buttons.forEach(b => b.classList.add("locked"));
+
+      if (key === item.answer) {
+        btn.classList.add("correct");
+        score += pointsPer;
+        feedbackText.textContent = `✅ 答對了！${item.explain}`;
+        feedbackText.classList.add("good");
+        burstConfetti(14);
+      } else {
+        btn.classList.add("wrong");
+        buttons.forEach(b => {
+          if (b.dataset.key === item.answer) b.classList.add("correct");
+          else if (b !== btn) b.classList.add("dim");
+        });
+        feedbackText.textContent = `❌ 再想一下！${item.explain}`;
+        feedbackText.classList.add("bad");
+      }
+
+      scoreBadge.textContent = `⭐ ${score} 分`;
+      nextBtn.disabled = false;
+    }
+
+    function nextItem() {
+      const round = rounds[roundIndex];
+      if (itemIndex + 1 < round.items.length) {
+        itemIndex += 1;
+        renderItem();
+        return;
+      }
+      if (roundIndex + 1 < rounds.length) {
+        roundIndex += 1;
+        itemIndex = 0;
+        renderItem();
+        return;
+      }
+      showEnd();
+    }
+
+    function showEnd() {
+      progressFill.style.width = "100%";
+      const pct = score / maxPoints;
+      let stars = "⭐";
+      if (pct >= 0.95) stars = "⭐⭐⭐⭐⭐";
+      else if (pct >= 0.8) stars = "⭐⭐⭐⭐";
+      else if (pct >= 0.6) stars = "⭐⭐⭐";
+      else if (pct >= 0.4) stars = "⭐⭐";
+      starsRow.textContent = stars;
+      finalScore.textContent = score;
+
+      if (pct >= 0.95) {
+        endTitle.textContent = "🏆 滿分達人！";
+        endMsg.textContent = "五感、發音、文法樣樣難不倒你！";
+        burstConfetti(80);
+      } else if (pct >= 0.8) {
+        endTitle.textContent = "🎉 表現很棒！";
+        endMsg.textContent = "再複習一下細節就完美了。";
+        burstConfetti(50);
+      } else if (pct >= 0.6) {
+        endTitle.textContent = "👍 不錯喔！";
+        endMsg.textContent = "回到學習頁多聽幾次例句，下次挑戰滿分！";
+      } else {
+        endTitle.textContent = "💪 加油！";
+        endMsg.textContent = "回到學習頁複習五感動詞與發音，再來挑戰一次！";
+      }
+
+      showStage(endStage);
+    }
+
+    function startGame() {
+      roundIndex = 0;
+      itemIndex = 0;
+      score = 0;
+      showStage(quizStage);
+      renderItem();
+    }
+
+    // ====== Confetti ======
+    const confettiColors = ["#f59e0b", "#3b82f6", "#0f766e", "#f97316", "#dc2626", "#16a34a", "#0284c7"];
+    function burstConfetti(count) {
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        piece.style.animationDuration = (1.6 + Math.random() * 1.4) + "s";
+        piece.style.animationDelay = (Math.random() * 0.3) + "s";
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+        confettiWrap.appendChild(piece);
+        setTimeout(() => piece.remove(), 3200);
+      }
+    }
+
+    // ====== Wire up ======
+    startBtn.addEventListener("click", startGame);
+    restartBtn.addEventListener("click", startGame);
+    nextBtn.addEventListener("click", nextItem);
+  </script>
+</body>
+</html>
