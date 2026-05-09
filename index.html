@@ -679,7 +679,7 @@
       <section class="part-card" data-section-id="part3-senses">
         <div class="part-header">
           <div class="part-title">
-            <h2>🌼 Sense Sentences 五感寫作提示</h2>
+            <h2>🌼 Sense Sentences 五感例句</h2>
           </div>
           <div class="part-actions">
             <button class="audio-chip" data-play-section="part3-senses" data-state="ready" type="button">播放五感提示</button>
@@ -761,7 +761,7 @@
       <section class="part-card span-2" data-section-id="part5-writing">
         <div class="part-header">
           <div class="part-title">
-            <h2>🍽️ Five Senses Writing 問題與答案範例</h2>
+            <h2>🍽️ Five Senses Writing 五感問答例句</h2>
           </div>
           <div class="part-actions">
             <button class="audio-chip" data-play-section="part5-writing" data-state="ready" type="button">播放寫作問答</button>
@@ -904,19 +904,20 @@
 
     function renderAudioStatus(message) {
       statusNode.textContent = message;
+      statusNode.hidden = !message;
     }
 
     function updateAvailabilityStatus() {
       const readyCount = readySections().length;
       if (readyCount === 0) {
-        statusNode.textContent = "尚未找到音檔，把 audio/README.txt 裡列出的 5 個 mp3 放進 audio/ 後會自動啟用。";
+        renderAudioStatus("尚未找到音檔，把 audio/README.txt 裡列出的 5 個 mp3 放進 audio/ 後會自動啟用。");
         return;
       }
       if (readyCount === sections.length) {
-        statusNode.textContent = "5 個音檔都已找到，可以播放全部或單獨播放。";
+        renderAudioStatus("");
         return;
       }
-      statusNode.textContent = `已找到 ${readyCount} / ${sections.length} 個音檔。`;
+      renderAudioStatus(`已找到 ${readyCount} / ${sections.length} 個音檔。`);
     }
 
     function updateButtons() {
