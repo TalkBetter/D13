@@ -1003,6 +1003,7 @@
   const Audio = (() => {
     let ctx = null;
     let muted = false;
+    let speechPrimed = false;
     function ensure() {
       if (!ctx) {
         try { ctx = new (window.AudioContext || window.webkitAudioContext)(); }
@@ -1010,6 +1011,22 @@
       }
       if (ctx && ctx.state === "suspended") ctx.resume();
       return ctx;
+    }
+    function primeSpeech() {
+      if (speechPrimed) return;
+      if (!("speechSynthesis" in window)) return;
+      try {
+        const synth = window.speechSynthesis;
+        synth.cancel();
+        const u = new SpeechSynthesisUtterance(".");
+        u.lang = "en-US";
+        u.volume = 0;
+        u.rate = 1;
+        u.pitch = 1;
+        synth.speak(u);
+        setTimeout(() => synth.cancel(), 0);
+        speechPrimed = true;
+      } catch (e) { /* ignore */ }
     }
     function tone({ freq = 440, type = "sine", duration = 0.15, gain = 0.15, sweep = 0 }) {
       if (muted) return;
@@ -1044,6 +1061,10 @@
       src.stop(c.currentTime + duration + 0.02);
     }
     return {
+      prime() {
+        ensure();
+        primeSpeech();
+      },
       shoot()    { tone({ freq: 880, type: "square",   duration: 0.08, gain: 0.10, sweep: -400 }); },
       hitGood()  {
         tone({ freq: 660, type: "triangle", duration: 0.10, gain: 0.18 });
@@ -1534,6 +1555,7 @@
    * 7. Game lifecycle
    * ======================================================= */
   function startGame(mode) {
+    Audio.prime();
     State.mode = mode;
     State.status = "playing";
     State.score = 0;
@@ -1617,7 +1639,7 @@
   }
 
   function bindTouchButton(btn, onDown, onUp) {
-    const down = (e) => { e.preventDefault(); e.stopPropagation(); onDown(); };
+    const down = (e) => { e.preventDefault(); e.stopPropagation(); Audio.prime(); onDown(); };
     const up   = (e) => { e.preventDefault(); e.stopPropagation(); onUp(); };
     btn.addEventListener("pointerdown",   down);
     btn.addEventListener("pointerup",     up);
@@ -1668,6 +1690,7 @@
       if (isUIElement(e.target)) return;
       if (e.pointerType !== "mouse" && isInButtonZone(e)) return;   // ignore touch inside button strip
       e.preventDefault();
+      Audio.prime();
       Player.targetX = getStageX(e);
       if (e.pointerType === "mouse") {
         Player.firing = true;           // mouse: press = fire
